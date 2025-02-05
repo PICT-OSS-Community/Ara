@@ -20,5 +20,3 @@ while still being pretty simple for the programmers to work with.
 
 ## Contributing
 See CONTRIBUTING.md to get a general overview of how to contribute
-
-To see current status and ongoing tasks head over to https://tree.taiga.io/project/voidisnull-ara/kanban 
