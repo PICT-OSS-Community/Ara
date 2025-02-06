@@ -7,6 +7,12 @@ pub const Type = enum {
     null,
 };
 
+pub const type_map = std.StaticStringMap(Type).initComptime(.{
+    .{ "i32", Type.i32 },
+    .{ "f32", Type.f32 },
+    .{ "bool", Type.bool },
+});
+
 pub const TokenType = enum {
     // Single-character tokens
     left_paren,
@@ -60,12 +66,12 @@ pub const TokenType = enum {
 
 pub const Token = struct {
     typ: TokenType,
-    value: ?[]const u8,
+    name: ?[]const u8,
     typ_info: ?Type,
 
     // Constructor to create tokens with value
-    pub fn new(typ: TokenType, value: ?[]const u8, typ_info: ?Type) Token {
-        return .{ .typ = typ, .value = value, .typ_info = typ_info };
+    pub fn new(typ: TokenType, name: ?[]const u8, typ_info: ?Type) Token {
+        return .{ .typ = typ, .name = name, .typ_info = typ_info };
     }
 
     // String representation of a token for debugging
@@ -79,11 +85,3 @@ pub const Token = struct {
         return std.fmt.allocPrint(allocator, "({s}: null)", .{@tagName(self.typ)});
     }
 };
-
-// For debugging purpose
-pub fn printToken(token: Token) void {
-    std.debug.print("Token: {!s}, Value: {s}\n", .{
-        token.toString(),
-        token.value orelse "None",
-    });
-}
